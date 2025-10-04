@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="uk">
+
 <head>
   <meta charset="UTF-8">
   <title>FastCap</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Irish+Grover&family=Lobster&family=Russo+One&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
