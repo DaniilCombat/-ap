@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>FastCap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Irish+Grover&family=Lobster&family=Russo+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Russo One', sans-serif;
+      background: #fff;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 118px;
+      background: #8BE8CD;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .sidebar h2 {
+      font-family: 'Russo One';
+      font-size: 15px;
+      margin: 10px 0;
+    }
+
+    .filter-group {
+      margin: 15px 0;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+    }
+
+    .color-box {
+      width: 105px;
+      height: 20px;
+      margin: 5px 0;
+    }
+    .black { background: #000; }
+    .white { background: #fff; border: 1px solid #000; }
+    .green { background: #37D237; }
+    .yellow { background: #E7EF77; }
+    .blue { background: #0900FF; }
+    .grey { background: #A0A0A0; }
+
+    /* Main */
+    .main {
+      flex: 1;
+      background: #8EF3D6;
+      min-height: 794px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: #FFFF00;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      font-family: 'Irish Grover';
+      font-size: 48px;
+    }
+
+    .line-red {
+      height: 4px;
+      background: #E55252;
+    }
+
+    .menu {
+      background: #FFFF00;
+      display: flex;
+      gap: 20px;
+      padding: 5px 20px;
+      font-family: 'Lobster';
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product {
+      background: #fff;
+      border: 1px solid #000;
+      padding: 10px;
+      font-family: 'Press Start 2P';
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    /* --- Адаптивность --- */
+    @media (max-width: 1024px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .header {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        font-size: 12px;
+      }
+      .color-box {
+        width: 40px;
+        height: 20px;
+      }
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        font-size: 28px;
+        height: 50px;
+      }
+      .menu {
+        font-size: 12px;
+        gap: 10px;
+      }
+      .products {
+        grid-template-columns: 1fr;
+      }
+      .product img {
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Фільтри</h2>
+
+      <div class="filter-group">
+        <div class="filter-option">Стать</div>
+        <div class="filter-option">Чоловічі</div>
+        <div class="filter-option">Жіночі</div>
+        <div class="filter-option">Унісекс</div>
+        <div class="filter-option">Дитячі</div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-option">Колір</div>
+        <div class="color-box black"></div>
+        <div class="color-box white"></div>
+        <div class="color-box green"></div>
+        <div class="color-box yellow"></div>
+        <div class="color-box blue"></div>
+        <div class="color-box grey"></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-option">Принт</div>
+        <div class="filter-option">Без принта</div>
+        <div class="filter-option">З принтом</div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="header">FastCap</div>
+      <div class="line-red"></div>
+      <div class="menu">
+        <div>Головне</div>
+        <div>Дитячі</div>
+        <div>Чоловічі</div>
+        <div>Жіночі</div>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна</div>
+          <div class="price">50$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка біла</div>
+          <div class="price">50$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна Нью-Йорк</div>
+          <div class="price">100$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна Лос-Анджелес</div>
+          <div class="price">100$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка темно-зелена Polo</div>
+          <div class="price">120$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка бежева Нью-Йорк</div>
+          <div class="price">100$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка камуфляж<br>(для ЗСУ знижка 75%)</div>
+          <div class="price">100$</div>
+        </div>
+
+        <div class="product">
+          <img src="image.png" alt="cap">
+          <div>Кепка синя Polo</div>
+          <div class="price">120$</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
