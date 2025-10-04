@@ -20,7 +20,7 @@
 
     /* Sidebar */
     .sidebar {
-      width: 118px;
+      width: 160px;
       background: #8BE8CD;
       padding: 10px;
       box-sizing: border-box;
@@ -40,15 +40,28 @@
 
     .filter-option {
       margin: 5px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filter-option.active {
+      text-decoration: underline;
     }
 
     .color-box {
       width: 105px;
       height: 20px;
       margin: 5px 0;
+      cursor: pointer;
+      border: 1px solid #000;
     }
+
+    .color-box.active {
+      outline: 3px solid #E55252;
+    }
+
     .black { background: #000; }
-    .white { background: #fff; border: 1px solid #000; }
+    .white { background: #fff; }
     .green { background: #37D237; }
     .yellow { background: #E7EF77; }
     .blue { background: #0900FF; }
@@ -90,7 +103,7 @@
 
     .products {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
       padding: 20px;
     }
@@ -116,16 +129,7 @@
       font-weight: bold;
     }
 
-    /* --- Адаптивность --- */
-    @media (max-width: 1024px) {
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .header {
-        font-size: 36px;
-      }
-    }
-
+    /* Адаптив */
     @media (max-width: 768px) {
       .wrapper {
         flex-direction: column;
@@ -141,26 +145,6 @@
         width: 40px;
         height: 20px;
       }
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header {
-        font-size: 28px;
-        height: 50px;
-      }
-      .menu {
-        font-size: 12px;
-        gap: 10px;
-      }
-      .products {
-        grid-template-columns: 1fr;
-      }
-      .product img {
-        height: 100px;
-      }
     }
   </style>
 </head>
@@ -170,28 +154,28 @@
     <div class="sidebar">
       <h2>Фільтри</h2>
 
-      <div class="filter-group">
-        <div class="filter-option">Стать</div>
-        <div class="filter-option">Чоловічі</div>
-        <div class="filter-option">Жіночі</div>
-        <div class="filter-option">Унісекс</div>
-        <div class="filter-option">Дитячі</div>
+      <div class="filter-group" data-filter="gender">
+        <div class="filter-option" data-value="all">Усі</div>
+        <div class="filter-option" data-value="male">Чоловічі</div>
+        <div class="filter-option" data-value="female">Жіночі</div>
+        <div class="filter-option" data-value="unisex">Унісекс</div>
+        <div class="filter-option" data-value="kids">Дитячі</div>
       </div>
 
-      <div class="filter-group">
+      <div class="filter-group" data-filter="color">
         <div class="filter-option">Колір</div>
-        <div class="color-box black"></div>
-        <div class="color-box white"></div>
-        <div class="color-box green"></div>
-        <div class="color-box yellow"></div>
-        <div class="color-box blue"></div>
-        <div class="color-box grey"></div>
+        <div class="color-box black" data-value="black"></div>
+        <div class="color-box white" data-value="white"></div>
+        <div class="color-box green" data-value="green"></div>
+        <div class="color-box yellow" data-value="yellow"></div>
+        <div class="color-box blue" data-value="blue"></div>
+        <div class="color-box grey" data-value="grey"></div>
       </div>
 
-      <div class="filter-group">
-        <div class="filter-option">Принт</div>
-        <div class="filter-option">Без принта</div>
-        <div class="filter-option">З принтом</div>
+      <div class="filter-group" data-filter="print">
+        <div class="filter-option" data-value="all">Всі</div>
+        <div class="filter-option" data-value="no-print">Без принта</div>
+        <div class="filter-option" data-value="print">З принтом</div>
       </div>
     </div>
 
@@ -206,50 +190,51 @@
         <div>Жіночі</div>
       </div>
 
-      <div class="products">
-        <div class="product">
+      <div class="products" id="product-list">
+        <!-- Товари -->
+        <div class="product" data-gender="male" data-color="black" data-print="no-print">
           <img src="image.png" alt="cap">
           <div>Кепка чорна</div>
           <div class="price">50$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="female" data-color="white" data-print="no-print">
           <img src="image.png" alt="cap">
           <div>Кепка біла</div>
           <div class="price">50$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="male" data-color="black" data-print="print">
           <img src="image.png" alt="cap">
           <div>Кепка чорна Нью-Йорк</div>
           <div class="price">100$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="male" data-color="black" data-print="print">
           <img src="image.png" alt="cap">
           <div>Кепка чорна Лос-Анджелес</div>
           <div class="price">100$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="unisex" data-color="green" data-print="no-print">
           <img src="image.png" alt="cap">
           <div>Кепка темно-зелена Polo</div>
           <div class="price">120$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="female" data-color="yellow" data-print="print">
           <img src="image.png" alt="cap">
           <div>Кепка бежева Нью-Йорк</div>
           <div class="price">100$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="male" data-color="grey" data-print="print">
           <img src="image.png" alt="cap">
-          <div>Кепка камуфляж<br>(для ЗСУ знижка 75%)</div>
+          <div>Кепка камуфляж (ЗСУ знижка 75%)</div>
           <div class="price">100$</div>
         </div>
 
-        <div class="product">
+        <div class="product" data-gender="unisex" data-color="blue" data-print="no-print">
           <img src="image.png" alt="cap">
           <div>Кепка синя Polo</div>
           <div class="price">120$</div>
@@ -257,5 +242,49 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const filters = {
+      gender: 'all',
+      color: 'all',
+      print: 'all'
+    };
+
+    const products = document.querySelectorAll('.product');
+
+    // Обработка кликов по фильтрам
+    document.querySelectorAll('.filter-option, .color-box').forEach(el => {
+      el.addEventListener('click', () => {
+        const parent = el.closest('[data-filter]');
+        const type = parent.getAttribute('data-filter');
+        const value = el.getAttribute('data-value');
+
+        // Снять активность
+        parent.querySelectorAll('.filter-option, .color-box').forEach(e => e.classList.remove('active'));
+        // Активировать выбранный
+        el.classList.add('active');
+
+        // Сохранить выбранный фильтр
+        filters[type] = value;
+
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      products.forEach(p => {
+        const matchGender = filters.gender === 'all' || p.dataset.gender === filters.gender;
+        const matchColor = filters.color === 'all' || p.dataset.color === filters.color;
+        const matchPrint = filters.print === 'all' || p.dataset.print === filters.print;
+
+        if (matchGender && matchColor && matchPrint) {
+          p.style.display = 'block';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
+
