@@ -1,119 +1,265 @@
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastCap - Магазин головных уборов</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>FastCap</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Russo One', sans-serif;
+      background: #fff;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 160px;
+      background: #8BE8CD;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .sidebar h2 {
+      font-size: 15px;
+      margin: 10px 0;
+    }
+    .filter-group { margin: 15px 0; }
+    .filter-option {
+      margin: 5px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .filter-option.active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .color-box {
+      width: 105px;
+      height: 20px;
+      margin: 5px 0;
+      cursor: pointer;
+      border: 1px solid #000;
+    }
+    .color-box.active {
+      border: 3px solid red;
+    }
+    .black { background: #000; }
+    .white { background: #fff; }
+    .green { background: #37D237; }
+    .yellow { background: #E7EF77; }
+    .blue { background: #0900FF; }
+    .grey { background: #A0A0A0; }
+
+    .main {
+      flex: 1;
+      background: #8EF3D6;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: #FFFF00;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      font-family: 'Irish Grover';
+      font-size: 48px;
+    }
+    .line-red { height: 4px; background: #E55252; }
+    .menu {
+      background: #FFFF00;
+      display: flex;
+      gap: 20px;
+      padding: 5px 20px;
+      font-family: 'Lobster';
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+    .product {
+      background: #fff;
+      border: 1px solid #000;
+      padding: 10px;
+      font-family: 'Press Start 2P';
+      font-size: 10px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product:hover {
+      transform: scale(1.03);
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    }
+    .product img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 5px;
+    }
+    .price { margin-top: 5px; font-weight: bold; }
+    @media (max-width: 1024px) {
+      .products { grid-template-columns: repeat(2, 1fr); }
+      .header { font-size: 36px; }
+    }
+    @media (max-width: 768px) {
+      .wrapper { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .products { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .products { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Фільтри</h2>
 
-    <header class="header">
-        <div class="logo">FastCap</div>
-        <nav class="main-nav">
-            <a href="#">Головные</a>
-            <a href="#">Элементы</a>
-            <a href="#">для мод</a>
-            <a href="#">челове</a>
-        </nav>
-        <div class="header-logo-right">FASTCAP</div>
-    </header>
+      <div class="filter-group">
+        <div class="filter-option" data-gender="all">Усі</div>
+        <div class="filter-option" data-gender="чоловічі">Чоловічі</div>
+        <div class="filter-option" data-gender="жіночі">Жіночі</div>
+        <div class="filter-option" data-gender="унісекс">Унісекс</div>
+        <div class="filter-option" data-gender="дитячі">Дитячі</div>
+      </div>
 
-    <main class="main-content">
+      <div class="filter-group">
+        <div class="filter-option">Колір</div>
+        <div class="color-box black" data-color="чорна"></div>
+        <div class="color-box white" data-color="біла"></div>
+        <div class="color-box green" data-color="зелена"></div>
+        <div class="color-box blue" data-color="синя"></div>
+        <div class="color-box grey" data-color="камуфляж"></div>
+      </div>
 
-        <aside class="sidebar">
-            <h3 class="filter-title">Фильтры</h3>
+      <button id="reset-filters" style="margin-top:10px;padding:5px 10px;">Очистити</button>
+    </div>
 
-            <input type="text" placeholder="поиск..." class="search-input">
+    <div class="main">
+      <div class="header">FastCap</div>
+      <div class="line-red"></div>
 
-            <div class="filter-group">
-                <label><input type="checkbox" name="prop" value="siri"> Siri</label>
-                <label><input type="checkbox" name="prop" value="chorni"> Чорні</label>
-                <label><input type="checkbox" name="prop" value="bez_printa"> Без принта</label>
-                <label><input type="checkbox" name="prop" value="s_printom"> З принтом</label>
-            </div>
+      <div class="menu">
+        <div>Головне</div>
+        <div>Дитячі</div>
+        <div>Чоловічі</div>
+        <div>Жіночі</div>
+      </div>
 
-            <h4 class="filter-subtitle">Стать</h4>
-            <div class="filter-group">
-                <label><input type="radio" name="gender" value="male"> Чоловічі</label>
-                <label><input type="radio" name="gender" value="female"> Жіночі</label>
-                <label><input type="radio" name="gender" value="kids"> Дитячі</label>
-                <label><input type="radio" name="gender" value="unisex"> Унисекс</label>
-            </div>
+      <div class="products">
+        <div class="product" data-gender="чоловічі" data-color="чорна">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна</div>
+          <div class="price">50$</div>
+        </div>
 
-            <h4 class="filter-subtitle">Колір</h4>
-            <div class="filter-group color-filters">
-                <div class="color-option black"></div>
-                <div class="color-option white"></div>
-                <div class="color-option dark-blue"></div>
-                <div class="color-option gray"></div>
-                <div class="color-option light-blue"></div>
-                <div class="color-option green"></div>
-                <div class="color-option neon-green"></div>
-                <div class="color-option camo-yellow"></div>
-                <div class="color-option camo-tan"></div>
-            </div>
-        </aside>
+        <div class="product" data-gender="жіночі" data-color="біла">
+          <img src="image.png" alt="cap">
+          <div>Кепка біла</div>
+          <div class="price">50$</div>
+        </div>
 
-        <section class="product-grid">
+        <div class="product" data-gender="чоловічі" data-color="чорна">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна Нью-Йорк</div>
+          <div class="price">100$</div>
+        </div>
 
-            <div class="product-item">
-                <img src="images/cap_black_plain.png" alt="Кепка чорна без принта">
-                <p class="product-name">Кепка чорна</p>
-                <p class="product-price">50$</p>
-                <p class="product-details">чорна | Без принта</p>
-            </div>
+        <div class="product" data-gender="чоловічі" data-color="чорна">
+          <img src="image.png" alt="cap">
+          <div>Кепка чорна Лос-Анджелес</div>
+          <div class="price">100$</div>
+        </div>
 
-            <div class="product-item">
-                <img src="images/cap_white_plain.png" alt="Кепка біла без принта">
-                <p class="product-name">Кепка біла</p>
-                <p class="product-price">50$</p>
-                <p class="product-details">біла | Без принта</p>
-            </div>
+        <div class="product" data-gender="унісекс" data-color="зелена">
+          <img src="image.png" alt="cap">
+          <div>Кепка темно-зелена Polo</div>
+          <div class="price">120$</div>
+        </div>
 
-            <div class="product-item">
-                <img src="images/cap_black_print_ny.png" alt="Кепка чорна Нью-Йорк">
-                <p class="product-name">Кепка чорна Нью-Йорк</p>
-                <p class="product-price">100$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+        <div class="product" data-gender="жіночі" data-color="бежева">
+          <img src="image.png" alt="cap">
+          <div>Кепка бежева Нью-Йорк</div>
+          <div class="price">100$</div>
+        </div>
 
-            <div class="product-item">
-                <img src="images/cap_black_print_la.png" alt="Кепка чорна Лос-Анджелес">
-                <p class="product-name">Кепка чорна Лос-Анджелес</p>
-                <p class="product-price">100$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+        <div class="product" data-gender="унісекс" data-color="камуфляж">
+          <img src="image.png" alt="cap">
+          <div>Кепка камуфляж (для ЗСУ знижка 75%)</div>
+          <div class="price">100$</div>
+        </div>
 
-            <div class="product-item">
-                <img src="images/cap_green_polo.png" alt="Кепка темно-зелена Polo">
-                <p class="product-name">Кепка темно-зелена Polo</p>
-                <p class="product-price">120$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+        <div class="product" data-gender="чоловічі" data-color="синя">
+          <img src="image.png" alt="cap">
+          <div>Кепка синя Polo</div>
+          <div class="price">120$</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <div class="product-item">
-                <img src="images/cap_beige_ny.png" alt="Кепка бежева Нью-Йорк">
-                <p class="product-name">Кепка бежева Нью-Йорк</p>
-                <p class="product-price">100$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+  <script>
+    const genderFilters = document.querySelectorAll('.filter-option[data-gender]');
+    const colorFilters = document.querySelectorAll('.color-box');
+    const products = document.querySelectorAll('.product');
+    const resetBtn = document.getElementById('reset-filters');
 
-            <div class="product-item">
-                <img src="images/cap_camo.png" alt="Кепка камуфляж">
-                <p class="product-name">Кепка камуфляж (армійська 40% знижка 75$)</p>
-                <p class="product-price">100$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+    let selectedGender = 'all';
+    let selectedColor = null;
 
-            <div class="product-item">
-                <img src="images/cap_blue_polo.png" alt="Кепка синя Polo">
-                <p class="product-name">Кепка синя Polo</p>
-                <p class="product-price">120$</p>
-                <p class="product-details">з принтом</p>
-            </div>
+    // Клік по фильтрам статі
+    genderFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        genderFilters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedGender = btn.dataset.gender;
+        filterProducts();
+      });
+    });
 
-        </section>
-    </main>
-<script src="script.js"></script>
+    // Клик по кольору
+    colorFilters.forEach(box => {
+      box.addEventListener('click', () => {
+        colorFilters.forEach(c => c.classList.remove('active'));
+        box.classList.add('active');
+        selectedColor = box.dataset.color;
+        filterProducts();
+      });
+    });
+
+    // Очистка
+    resetBtn.addEventListener('click', () => {
+      selectedGender = 'all';
+      selectedColor = null;
+      genderFilters.forEach(b => b.classList.remove('active'));
+      colorFilters.forEach(c => c.classList.remove('active'));
+      filterProducts();
+    });
+
+    // Фильтрация
+    function filterProducts() {
+      products.forEach(p => {
+        const genderMatch = selectedGender === 'all' || p.dataset.gender === selectedGender;
+        const colorMatch = !selectedColor || p.dataset.color === selectedColor;
+        if (genderMatch && colorMatch) {
+          p.style.display = 'block';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
